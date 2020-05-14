@@ -1,0 +1,1 @@
+domainList = ['gandi','namesilo','name']
