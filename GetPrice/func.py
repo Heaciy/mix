@@ -5,6 +5,7 @@ from time import perf_counter as pc
 
 
 def gandi():
+    # 使用多线程可以有效的加快速度
     # paramsList = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
     #               'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
     paramsList = ['a']
@@ -33,7 +34,7 @@ def gandi():
         print('Params: {} | Status: {} | Cost {} s'.format(
             i, response.status_code, pc()-t0))
     # 将处理好的数据存入文件
-    with open('gandi.json', 'w', encoding='utf-8')as f:
+    with open('./data/gandi.json', 'w', encoding='utf-8')as f:
         json.dump(tmp, f, ensure_ascii=False)
 
 
@@ -67,7 +68,7 @@ def namesilo():
     print('client cost {} s'.format(pc()-t1))
     getData(response.text)
     print('Status: {} | Cost {} s'.format(response.status_code, pc()-t0))
-    with open('namesilo.json', 'w', encoding='utf-8') as f:
+    with open('./data/namesilo.json', 'w', encoding='utf-8') as f:
         json.dump(tmp, f, ensure_ascii=False)
 
 
