@@ -43,4 +43,4 @@ if __name__ == "__main__":
     # 文件格式
     f_ext = '.jpg'
 
-    get_wallpaper(to_path, to_path, f_ext)
+    get_wallpaper(from_path, to_path, f_ext)
