@@ -4,10 +4,6 @@ import requests
 headers = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.105 Safari/537.36"}
 
-# 登陆所需的用户名和密码
-data = {"userAccount": '你的学号',
-        "userPassword": '你的密码', 'encoded': ''}
-
 # 所需的url
 url_0 = 'http://bkjx.wust.edu.cn/Logon.do?method=logon&flag=sess'  # Ajax,登陆时第一次post的请求链接
 url_1 = 'http://bkjx.wust.edu.cn/Logon.do?method=logon'  # 登陆时第二次post的请求链接
@@ -34,23 +30,20 @@ def get_session(headers, data):
             encoded = encoded+code[i:len(code)]
             i = len(code)
         i += 1
-    # 第二次post提交所需的数据
-    data['userPassword'] = ''
-    data['encoded'] = encoded
-
+    # 第二次post提交，获取用域登陆的cookie
+    session.post(url_1, data={
+                 "userAccount": data['userAccount'], "userPassword": '', "encoded": encoded})
     return session
 
 
 if __name__ == '__main__':
+    # 登陆所需的用户名和密码
+    data = {"userAccount": '你的学号',
+            "userPassword": '你的密码', "encoded": ''}
     session = get_session(headers, data)
-    res = session.post(url_1, data=data)
-    # print(res.headers)
-    # print(res.url)
-    # print(res.text)
-    # print(session.cookies)
-    # print(session.post(url_2, data={'xnxq01id': '2019-2020-2'}).text)
     with open('tmp.html', 'w', encoding='utf8') as f:
         f.write(session.post(url_2, data={'xnxq01id': '2019-2020-2'}).text)
     # sjmsValue默认为：9486203B90F3E3CBE0532914A8C03BE2, 青山校区为D012D3EAA2564458AE988FFDC28BF44A
-    print(session.post(url_3, data={
-          'rq': '2020-08-20', 'sjmsValue': '9486203B90F3E3CBE0532914A8C03BE2'}).text)
+    with open('tmp_.html', 'w', encoding='utf8') as f:
+        f.write(session.post(url_3, data={
+                'rq': '2020-08-21', 'sjmsValue': '9486203B90F3E3CBE0532914A8C03BE2'}).text)
