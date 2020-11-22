@@ -7,3 +7,5 @@ bin/
 tmp/
 resources/
 __pycache__/
+lib/
+fmt/
